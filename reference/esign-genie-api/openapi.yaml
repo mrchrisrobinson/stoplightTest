@@ -1,9 +1,4364 @@
-openapi: '3.0.0'
-info:
-  title: eSign Genie API
-  version: '1.0'
-servers:
-- url: http://localhost:3000
-paths: {}
-components:
-  schemas: {}
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "eSign Genie",
+    "description": "eSign Genie is the #1 easiest and most collaborative contract management and esignature software with the most robust functionality amongst its peers. Key features include: Collaborative contracts and agreement building; template contract creation; esignature workflow to obtain esignature(s) from single, or multiple users; advanced bulk esignature solution with dashboard; notification receiving control; API for esignature integration with other software or websites and a lot more... For more information on eSign Genie Software, please contact us at info@esigngenie.com",
+    "termsOfService": "#",
+    "contact": {
+      "name": "eSign Genie API Team",
+      "email": "info@esigngenie.com",
+      "url": "https://www.esigngenie.com/"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://www.esigngenie.com/esign/api"
+    }
+  ],
+  "paths": {
+    "/oauth2/access_token": {
+      "post": {
+        "description": "Access your eSign Genie account from your application",
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "postAccessToken",
+        "requestBody": {
+          "description": "Client Credentials Access your eSign Genie account from your application",
+          "required": true,
+          "content": {
+            "application/x-www-form-URLencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/accessToken"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "pet response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resAccessToken"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Response to a POST that results in a creation."
+          },
+          "204": {
+            "description": "Response to a successful request that won't be returning a body."
+          },
+          "400": {
+            "description": "Bad Request (A validation exception has occurred.)"
+          },
+          "401": {
+            "description": "Unauthorized (Invalid authorization credentials.)"
+          },
+          "403": {
+            "description": "When authentication succeeded but authenticated user doesn't have access to the resource"
+          },
+          "404": {
+            "description": "Not Found (The resource you have specified cannot be found)"
+          },
+          "500": {
+            "description": "Internal Error"
+          },
+          "501": {
+            "description": "Not Implemented (The method you have called has not been implemented)"
+          },
+          "503": {
+            "description": "Rate Limit Exceeded"
+          }
+        }
+      }
+    },
+    "/folders/createfolder": {
+      "post": {
+        "description": "Create folder of documents from PDF files",
+        "tags": [
+          "Folders API"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "operationId": "postCreateFolder",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createFolder"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resCreateFolder"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Response to a POST that results in a creation."
+          },
+          "204": {
+            "description": "Response to a successful request that won't be returning a body."
+          },
+          "400": {
+            "description": "Bad Request (A validation exception has occurred.)"
+          },
+          "401": {
+            "description": "Unauthorized (Invalid authorization credentials.)"
+          },
+          "403": {
+            "description": "When authentication succeeded but authenticated user doesn't have access to the resource"
+          },
+          "404": {
+            "description": "Not Found (The resource you have specified cannot be found)"
+          },
+          "500": {
+            "description": "Internal Error"
+          },
+          "501": {
+            "description": "Not Implemented (The method you have called has not been implemented)"
+          },
+          "503": {
+            "description": "Rate Limit Exceeded"
+          }
+        }
+      }
+    },
+    "/folders/updateEnvelopeFields": {
+      "post": {
+        "description": "Create folder of documents from PDF files",
+        "tags": [
+          "Folders API"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "operationId": "postUpdateEnvelopeFields",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/updateEnvelopeFields"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resUpdateEnvelopFields"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Response to a POST that results in a creation."
+          },
+          "204": {
+            "description": "Response to a successful request that won't be returning a body."
+          },
+          "400": {
+            "description": "Bad Request (A validation exception has occurred.)"
+          },
+          "401": {
+            "description": "Unauthorized (Invalid authorization credentials.)"
+          },
+          "403": {
+            "description": "When authentication succeeded but authenticated user doesn't have access to the resource"
+          },
+          "404": {
+            "description": "Not Found (The resource you have specified cannot be found)"
+          },
+          "500": {
+            "description": "Internal Error"
+          },
+          "501": {
+            "description": "Not Implemented (The method you have called has not been implemented)"
+          },
+          "503": {
+            "description": "Rate Limit Exceeded"
+          }
+        }
+      }
+    },
+    "/folders/myfolder": {
+      "get": {
+        "description": "Returns a user based on a single ID, if the user does not have access to the pet",
+        "operationId": "getFolderMyFolder",
+        "tags": [
+          "Folders API"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "folderId",
+            "in": "query",
+            "description": "You can poll our API to get the folder/document data",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "pet response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resFoldersMyFolders"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Response to a POST that results in a creation."
+          },
+          "204": {
+            "description": "Response to a successful request that won't be returning a body."
+          },
+          "400": {
+            "description": "Bad Request (A validation exception has occurred.)"
+          },
+          "401": {
+            "description": "Unauthorized (Invalid authorization credentials.)"
+          },
+          "403": {
+            "description": "When authentication succeeded but authenticated user doesn't have access to the resource"
+          },
+          "404": {
+            "description": "Not Found (The resource you have specified cannot be found)"
+          },
+          "500": {
+            "description": "Internal Error"
+          },
+          "501": {
+            "description": "Not Implemented (The method you have called has not been implemented)"
+          },
+          "503": {
+            "description": "Rate Limit Exceeded"
+          }
+        }
+      }
+    },
+    "/folders/download": {
+      "get": {
+        "description": "You can download executed folder document(s) as well as signature certificate all at once in a zip file.",
+        "operationId": "getFoldersDownload",
+        "tags": [
+          "Folders API"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "folderId",
+            "in": "query",
+            "description": "You can poll our API to get the folder/document data",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns ZIP file binary stream of all the documents in the folder with the signature certificate"
+          },
+          "201": {
+            "description": "Response to a POST that results in a creation."
+          },
+          "204": {
+            "description": "Response to a successful request that won't be returning a body."
+          },
+          "400": {
+            "description": "Bad Request (A validation exception has occurred.)"
+          },
+          "401": {
+            "description": "Unauthorized (Invalid authorization credentials.)"
+          },
+          "403": {
+            "description": "When authentication succeeded but authenticated user doesn't have access to the resource"
+          },
+          "404": {
+            "description": "Not Found (The resource you have specified cannot be found)"
+          },
+          "500": {
+            "description": "Internal Error"
+          },
+          "501": {
+            "description": "Not Implemented (The method you have called has not been implemented)"
+          },
+          "503": {
+            "description": "Rate Limit Exceeded"
+          }
+        }
+      }
+    },
+    "/folders/document/download": {
+      "get": {
+        "description": "You can download executed folder document(s) as well as signature certificate all at once in a zip file.",
+        "operationId": "getFoldersDocumentDownload",
+        "tags": [
+          "Folders API"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "folderId",
+            "in": "query",
+            "description": "Your FOLDER_ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "docNumber",
+            "in": "query",
+            "description": "The index of the document starting from 1 whose PDF you want to download.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns PDF file binary stream of the document which you can save as PDF file."
+          },
+          "201": {
+            "description": "Response to a POST that results in a creation."
+          },
+          "204": {
+            "description": "Response to a successful request that won't be returning a body."
+          },
+          "400": {
+            "description": "Bad Request (A validation exception has occurred.)"
+          },
+          "401": {
+            "description": "Unauthorized (Invalid authorization credentials.)"
+          },
+          "403": {
+            "description": "When authentication succeeded but authenticated user doesn't have access to the resource"
+          },
+          "404": {
+            "description": "Not Found (The resource you have specified cannot be found)"
+          },
+          "500": {
+            "description": "Internal Error"
+          },
+          "501": {
+            "description": "Not Implemented (The method you have called has not been implemented)"
+          },
+          "503": {
+            "description": "Rate Limit Exceeded"
+          }
+        }
+      }
+    },
+    "/folders/movetorecyclebin": {
+      "post": {
+        "description": "You can download executed folder document(s) as well as signature certificate all at once in a zip file.",
+        "operationId": "deleteFoldersMoveToRecyclebin",
+        "tags": [
+          "Folders API"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/movetorecyclebin"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "pet response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resMoveToRecyclebin"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Response to a POST that results in a creation."
+          },
+          "204": {
+            "description": "Response to a successful request that won't be returning a body."
+          },
+          "400": {
+            "description": "Bad Request (A validation exception has occurred.)"
+          },
+          "401": {
+            "description": "Unauthorized (Invalid authorization credentials.)"
+          },
+          "403": {
+            "description": "When authentication succeeded but authenticated user doesn't have access to the resource"
+          },
+          "404": {
+            "description": "Not Found (The resource you have specified cannot be found)"
+          },
+          "500": {
+            "description": "Internal Error"
+          },
+          "501": {
+            "description": "Not Implemented (The method you have called has not been implemented)"
+          },
+          "503": {
+            "description": "Rate Limit Exceeded"
+          }
+        }
+      }
+    },
+    "/templates/createtemplate": {
+      "post": {
+        "description": "You can download executed folder document(s) as well as signature certificate all at once in a zip file.",
+        "operationId": "postTemplatesCreateTemplate",
+        "tags": [
+          "Templates API"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createTemplate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "pet response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resCreateTemplate"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Response to a POST that results in a creation."
+          },
+          "204": {
+            "description": "Response to a successful request that won't be returning a body."
+          },
+          "400": {
+            "description": "Bad Request (A validation exception has occurred.)"
+          },
+          "401": {
+            "description": "Unauthorized (Invalid authorization credentials.)"
+          },
+          "403": {
+            "description": "When authentication succeeded but authenticated user doesn't have access to the resource"
+          },
+          "404": {
+            "description": "Not Found (The resource you have specified cannot be found)"
+          },
+          "500": {
+            "description": "Internal Error"
+          },
+          "501": {
+            "description": "Not Implemented (The method you have called has not been implemented)"
+          },
+          "503": {
+            "description": "Rate Limit Exceeded"
+          }
+        }
+      }
+    },
+    "/templates/createFolder": {
+      "post": {
+        "description": "You can download executed folder document(s) as well as signature certificate all at once in a zip file.",
+        "operationId": "postTemplatesCreateFolder",
+        "tags": [
+          "Templates API"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createtemplateFolder"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "pet response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resCreateTemplateFolder"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Response to a POST that results in a creation."
+          },
+          "204": {
+            "description": "Response to a successful request that won't be returning a body."
+          },
+          "400": {
+            "description": "Bad Request (A validation exception has occurred.)"
+          },
+          "401": {
+            "description": "Unauthorized (Invalid authorization credentials.)"
+          },
+          "403": {
+            "description": "When authentication succeeded but authenticated user doesn't have access to the resource"
+          },
+          "404": {
+            "description": "Not Found (The resource you have specified cannot be found)"
+          },
+          "500": {
+            "description": "Internal Error"
+          },
+          "501": {
+            "description": "Not Implemented (The method you have called has not been implemented)"
+          },
+          "503": {
+            "description": "Rate Limit Exceeded"
+          }
+        }
+      }
+    },
+    "/templates/list": {
+      "get": {
+        "description": "You can download executed folder document(s) as well as signature certificate all at once in a zip file.",
+        "operationId": "getTemplatesList",
+        "tags": [
+          "Templates API"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "pet response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resTemplatesList"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Response to a POST that results in a creation."
+          },
+          "204": {
+            "description": "Response to a successful request that won't be returning a body."
+          },
+          "400": {
+            "description": "Bad Request (A validation exception has occurred.)"
+          },
+          "401": {
+            "description": "Unauthorized (Invalid authorization credentials.)"
+          },
+          "403": {
+            "description": "When authentication succeeded but authenticated user doesn't have access to the resource"
+          },
+          "404": {
+            "description": "Not Found (The resource you have specified cannot be found)"
+          },
+          "500": {
+            "description": "Internal Error"
+          },
+          "501": {
+            "description": "Not Implemented (The method you have called has not been implemented)"
+          },
+          "503": {
+            "description": "Rate Limit Exceeded"
+          }
+        }
+      }
+    },
+    "/templates/mytemplate": {
+      "get": {
+        "description": "Returns a user based on a single ID, if the user does not have access to the pet",
+        "operationId": "getTemplatesMytemplate",
+        "tags": [
+          "Templates API"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "templateId",
+            "in": "query",
+            "description": "You can poll our API to get the folder/document data",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "pet response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resTemplatesMyTemplate"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Response to a POST that results in a creation."
+          },
+          "204": {
+            "description": "Response to a successful request that won't be returning a body."
+          },
+          "400": {
+            "description": "Bad Request (A validation exception has occurred.)"
+          },
+          "401": {
+            "description": "Unauthorized (Invalid authorization credentials.)"
+          },
+          "403": {
+            "description": "When authentication succeeded but authenticated user doesn't have access to the resource"
+          },
+          "404": {
+            "description": "Not Found (The resource you have specified cannot be found)"
+          },
+          "500": {
+            "description": "Internal Error"
+          },
+          "501": {
+            "description": "Not Implemented (The method you have called has not been implemented)"
+          },
+          "503": {
+            "description": "Rate Limit Exceeded"
+          }
+        }
+      }
+    },
+    "/parties/getEmailGroups": {
+      "post": {
+        "description": "You can pass no parameter in the request to get all email group details in your account.",
+        "tags": [
+          "Parties API"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "operationId": "postGetEmailGroups",
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/x-www-form-URLencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/GetEmailGroups"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Get Email Groups Responses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resGetEmailGroups"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Response to a POST that results in a creation."
+          },
+          "204": {
+            "description": "Response to a successful request that won't be returning a body."
+          },
+          "400": {
+            "description": "Bad Request (A validation exception has occurred.)"
+          },
+          "401": {
+            "description": "Unauthorized (Invalid authorization credentials.)"
+          },
+          "403": {
+            "description": "When authentication succeeded but authenticated user doesn't have access to the resource"
+          },
+          "404": {
+            "description": "Not Found (The resource you have specified cannot be found)"
+          },
+          "500": {
+            "description": "Internal Error"
+          },
+          "501": {
+            "description": "Not Implemented (The method you have called has not been implemented)"
+          },
+          "503": {
+            "description": "Rate Limit Exceeded"
+          }
+        }
+      }
+    },
+    "/parties/createEmailGroup": {
+      "post": {
+        "description": "To create a new email group via API, please make a call to parties/createEmailGroup with the following parameters.",
+        "tags": [
+          "Parties API"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "operationId": "postCreateEmailGroup",
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/x-www-form-URLencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEmailGroup"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Create Email Group Responses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resCreateEmailGroup"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Response to a POST that results in a creation."
+          },
+          "204": {
+            "description": "Response to a successful request that won't be returning a body."
+          },
+          "400": {
+            "description": "Bad Request (A validation exception has occurred.)"
+          },
+          "401": {
+            "description": "Unauthorized (Invalid authorization credentials.)"
+          },
+          "403": {
+            "description": "When authentication succeeded but authenticated user doesn't have access to the resource"
+          },
+          "404": {
+            "description": "Not Found (The resource you have specified cannot be found)"
+          },
+          "500": {
+            "description": "Internal Error"
+          },
+          "501": {
+            "description": "Not Implemented (The method you have called has not been implemented)"
+          },
+          "503": {
+            "description": "Rate Limit Exceeded"
+          }
+        }
+      }
+    },
+    "/users/create": {
+      "post": {
+        "description": "To create a new user via API, please make a call to /users/create with the following parameters.",
+        "tags": [
+          "Users API"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "operationId": "posCreateUser",
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/x-www-form-URLencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Create User Responses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resCreateUser"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Response to a POST that results in a creation."
+          },
+          "204": {
+            "description": "Response to a successful request that won't be returning a body."
+          },
+          "400": {
+            "description": "Bad Request (A validation exception has occurred.)"
+          },
+          "401": {
+            "description": "Unauthorized (Invalid authorization credentials.)"
+          },
+          "403": {
+            "description": "When authentication succeeded but authenticated user doesn't have access to the resource"
+          },
+          "404": {
+            "description": "Not Found (The resource you have specified cannot be found)"
+          },
+          "500": {
+            "description": "Internal Error"
+          },
+          "501": {
+            "description": "Not Implemented (The method you have called has not been implemented)"
+          },
+          "503": {
+            "description": "Rate Limit Exceeded"
+          }
+        }
+      }
+    },
+    "/users/update": {
+      "post": {
+        "description": "To update a user via API, please make a call to /users/update with the following parameters.",
+        "tags": [
+          "Users API"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "operationId": "postUpdateUser",
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/x-www-form-URLencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Create User Responses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resUpdateUser"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Response to a POST that results in a creation."
+          },
+          "204": {
+            "description": "Response to a successful request that won't be returning a body."
+          },
+          "400": {
+            "description": "Bad Request (A validation exception has occurred.)"
+          },
+          "401": {
+            "description": "Unauthorized (Invalid authorization credentials.)"
+          },
+          "403": {
+            "description": "When authentication succeeded but authenticated user doesn't have access to the resource"
+          },
+          "404": {
+            "description": "Not Found (The resource you have specified cannot be found)"
+          },
+          "500": {
+            "description": "Internal Error"
+          },
+          "501": {
+            "description": "Not Implemented (The method you have called has not been implemented)"
+          },
+          "503": {
+            "description": "Rate Limit Exceeded"
+          }
+        }
+      }
+    },
+    "/users/delete/{userId}": {
+      "get": {
+        "description": "To delete a user via API, please make a call to /users/delete with the following parameter.",
+        "tags": [
+          "Users API"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "operationId": "getDeleteUser",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete User Responses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resDeleteUser"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Response to a POST that results in a creation."
+          },
+          "204": {
+            "description": "Response to a successful request that won't be returning a body."
+          },
+          "400": {
+            "description": "Bad Request (A validation exception has occurred.)"
+          },
+          "401": {
+            "description": "Unauthorized (Invalid authorization credentials.)"
+          },
+          "403": {
+            "description": "When authentication succeeded but authenticated user doesn't have access to the resource"
+          },
+          "404": {
+            "description": "Not Found (The resource you have specified cannot be found)"
+          },
+          "500": {
+            "description": "Internal Error"
+          },
+          "501": {
+            "description": "Not Implemented (The method you have called has not been implemented)"
+          },
+          "503": {
+            "description": "Rate Limit Exceeded"
+          }
+        }
+      }
+    },
+    "/users/list": {
+      "get": {
+        "description": "To get a list of all the users in the account, use the following call",
+        "tags": [
+          "Users API"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "operationId": "getUserList",
+        "responses": {
+          "200": {
+            "description": "User List",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resUserList"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Response to a POST that results in a creation."
+          },
+          "204": {
+            "description": "Response to a successful request that won't be returning a body."
+          },
+          "400": {
+            "description": "Bad Request (A validation exception has occurred.)"
+          },
+          "401": {
+            "description": "Unauthorized (Invalid authorization credentials.)"
+          },
+          "403": {
+            "description": "When authentication succeeded but authenticated user doesn't have access to the resource"
+          },
+          "404": {
+            "description": "Not Found (The resource you have specified cannot be found)"
+          },
+          "500": {
+            "description": "Internal Error"
+          },
+          "501": {
+            "description": "Not Implemented (The method you have called has not been implemented)"
+          },
+          "503": {
+            "description": "Rate Limit Exceeded"
+          }
+        }
+      }
+    },
+    "/accounts/create": {
+      "post": {
+        "description": "To create a new account via API access_token is not required, instead the client_id and client_secret parameter are required to authenticate the API consumer",
+        "tags": [
+          "Account API"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "operationId": "posCreateNewAccount",
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/x-www-form-URLencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateNewAccount"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Create New Account Responses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resCreateNewAccount"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Response to a POST that results in a creation."
+          },
+          "204": {
+            "description": "Response to a successful request that won't be returning a body."
+          },
+          "400": {
+            "description": "Bad Request (A validation exception has occurred.)"
+          },
+          "401": {
+            "description": "Unauthorized (Invalid authorization credentials.)"
+          },
+          "403": {
+            "description": "When authentication succeeded but authenticated user doesn't have access to the resource"
+          },
+          "404": {
+            "description": "Not Found (The resource you have specified cannot be found)"
+          },
+          "500": {
+            "description": "Internal Error"
+          },
+          "501": {
+            "description": "Not Implemented (The method you have called has not been implemented)"
+          },
+          "503": {
+            "description": "Rate Limit Exceeded"
+          }
+        }
+      }
+    },
+    "/accounts/cancel": {
+      "get": {
+        "description": "To cancel an account via API, please make a call to",
+        "tags": [
+          "Account API"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "operationId": "getCancelAccount",
+        "responses": {
+          "200": {
+            "description": "Cancel Account",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resCancelAccount"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Response to a POST that results in a creation."
+          },
+          "204": {
+            "description": "Response to a successful request that won't be returning a body."
+          },
+          "400": {
+            "description": "Bad Request (A validation exception has occurred.)"
+          },
+          "401": {
+            "description": "Unauthorized (Invalid authorization credentials.)"
+          },
+          "403": {
+            "description": "When authentication succeeded but authenticated user doesn't have access to the resource"
+          },
+          "404": {
+            "description": "Not Found (The resource you have specified cannot be found)"
+          },
+          "500": {
+            "description": "Internal Error"
+          },
+          "501": {
+            "description": "Not Implemented (The method you have called has not been implemented)"
+          },
+          "503": {
+            "description": "Rate Limit Exceeded"
+          }
+        }
+      }
+    },
+    "/accounts/reactivate": {
+      "get": {
+        "description": "To reactivate an account via API, please make a call to",
+        "tags": [
+          "Account API"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "operationId": "getReactivateAccount",
+        "responses": {
+          "200": {
+            "description": "Reactivate Account",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resReactivateAccount"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Response to a POST that results in a creation."
+          },
+          "204": {
+            "description": "Response to a successful request that won't be returning a body."
+          },
+          "400": {
+            "description": "Bad Request (A validation exception has occurred.)"
+          },
+          "401": {
+            "description": "Unauthorized (Invalid authorization credentials.)"
+          },
+          "403": {
+            "description": "When authentication succeeded but authenticated user doesn't have access to the resource"
+          },
+          "404": {
+            "description": "Not Found (The resource you have specified cannot be found)"
+          },
+          "500": {
+            "description": "Internal Error"
+          },
+          "501": {
+            "description": "Not Implemented (The method you have called has not been implemented)"
+          },
+          "503": {
+            "description": "Rate Limit Exceeded"
+          }
+        }
+      }
+    },
+    "/accounts/changenumberoflicences": {
+      "get": {
+        "description": "To cancel an account via API, please make a call to",
+        "tags": [
+          "Account API"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "operationId": "getchangenumberoflicences",
+        "parameters": [
+          {
+            "name": "newNumberOfLicences",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Changen Nmber of Licences",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resChangenumberoflicences"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Response to a POST that results in a creation."
+          },
+          "204": {
+            "description": "Response to a successful request that won't be returning a body."
+          },
+          "400": {
+            "description": "Bad Request (A validation exception has occurred.)"
+          },
+          "401": {
+            "description": "Unauthorized (Invalid authorization credentials.)"
+          },
+          "403": {
+            "description": "When authentication succeeded but authenticated user doesn't have access to the resource"
+          },
+          "404": {
+            "description": "Not Found (The resource you have specified cannot be found)"
+          },
+          "500": {
+            "description": "Internal Error"
+          },
+          "501": {
+            "description": "Not Implemented (The method you have called has not been implemented)"
+          },
+          "503": {
+            "description": "Rate Limit Exceeded"
+          }
+        }
+      }
+    },
+    "/accounts/changeplan": {
+      "get": {
+        "description": "To change the subscription plan of an account, please make a call to",
+        "tags": [
+          "Account API"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "operationId": "getchangeplan",
+        "parameters": [
+          {
+            "name": "newPlan",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "newNumberOfLicences",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Change Plan",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resChangePlan"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Response to a POST that results in a creation."
+          },
+          "204": {
+            "description": "Response to a successful request that won't be returning a body."
+          },
+          "400": {
+            "description": "Bad Request (A validation exception has occurred.)"
+          },
+          "401": {
+            "description": "Unauthorized (Invalid authorization credentials.)"
+          },
+          "403": {
+            "description": "When authentication succeeded but authenticated user doesn't have access to the resource"
+          },
+          "404": {
+            "description": "Not Found (The resource you have specified cannot be found)"
+          },
+          "500": {
+            "description": "Internal Error"
+          },
+          "501": {
+            "description": "Not Implemented (The method you have called has not been implemented)"
+          },
+          "503": {
+            "description": "Rate Limit Exceeded"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "oAuth2ClientCredentials": {
+        "type": "oauth2",
+        "flows": {
+          "clientCredentials": {
+            "tokenUrl": "",
+            "refreshUrl": "",
+            "scopes": []
+          }
+        }
+      }
+    },
+    "schemas": {
+      "resAccessToken": {
+        "allOf": [
+          {
+            "type": "object"
+          },
+          {
+            "properties": {
+              "access_token": {
+                "type": "string",
+                "example": "ACCESS_TOKEN"
+              },
+              "token_type": {
+                "type": "string",
+                "example": "bearer"
+              },
+              "expires_in": {
+                "type": "integer",
+                "example": "31536000"
+              }
+            }
+          }
+        ]
+      },
+      "accessToken": {
+        "type": "object",
+        "required": [
+          "grant_type",
+          "client_id",
+          "client_secret",
+          "scope"
+        ],
+        "properties": {
+          "grant_type": {
+            "type": "string",
+            "example": "client_credentials"
+          },
+          "client_id": {
+            "type": "string",
+            "example": "Your API Key from the API menu under the Settings Tab"
+          },
+          "client_secret": {
+            "type": "string",
+            "example": "Your API Secret from the API menu under the Settings Tab"
+          },
+          "scope": {
+            "type": "string",
+            "example": "read-write"
+          }
+        }
+      },
+      "resCreateFolder": {
+        "allOf": [
+          {
+            "type": "object"
+          },
+          {
+            "properties": {
+              "result": {
+                "type": "string",
+                "example": "success"
+              },
+              "message": {
+                "type": "string",
+                "example": "folder of document(s) successfully created"
+              },
+              "embeddedSigningSessions": {
+                "type": "array",
+                "xml": {
+                  "name": "fileName",
+                  "wrapped": true
+                },
+                "items": {
+                  "$ref": "#/components/schemas/resEmbedSessions"
+                }
+              },
+              "folder": {
+                "type": "object",
+                "properties": {
+                  "folderId": {
+                    "type": "integer",
+                    "example": "179"
+                  },
+                  "folderName": {
+                    "type": "string",
+                    "example": "fw4"
+                  },
+                  "folderAuthorId": {
+                    "type": "integer",
+                    "example": "1"
+                  },
+                  "folderCompanyId": {
+                    "type": "integer",
+                    "example": "11"
+                  },
+                  "folderCreationDate": {
+                    "type": "integer",
+                    "example": "1441268056000"
+                  },
+                  "folderSentDate": {
+                    "type": "integer",
+                    "example": "1442470444000"
+                  },
+                  "folderStatus": {
+                    "type": "string",
+                    "example": "SHARED"
+                  },
+                  "folderDocumentIds": {
+                    "type": "array",
+                    "xml": {
+                      "name": "fileName",
+                      "wrapped": true
+                    },
+                    "items": {
+                      "type": "integer",
+                      "example": 420
+                    }
+                  },
+                  "documentsList": {
+                    "type": "array",
+                    "xml": {
+                      "name": "fileName",
+                      "wrapped": true
+                    },
+                    "items": {
+                      "$ref": "#/components/schemas/resDocumentsList"
+                    }
+                  },
+                  "folderRecipientParties": {
+                    "type": "array",
+                    "xml": {
+                      "name": "fileName",
+                      "wrapped": true
+                    },
+                    "items": {
+                      "$ref": "#/components/schemas/resFolderRecParties"
+                    }
+                  },
+                  "folderAccessURLForAuthor": {
+                    "type": "string",
+                    "example": "https://www.esigngenie.com/esign/viewDocumentDirect?encrDocId=jZvyX4AFC2kv7AU%2BBtM16A%3D%3D&partyId=1"
+                  },
+                  "bulkId": {
+                    "type": "integer",
+                    "example": "0"
+                  },
+                  "enforceSignWorkflow": {
+                    "type": "boolean",
+                    "example": "false"
+                  },
+                  "currentWorkflowStep": {
+                    "type": "integer",
+                    "example": "1"
+                  },
+                  "transactionSource": {
+                    "type": "string",
+                    "example": "API-1-via_file_upload"
+                  },
+                  "editable": {
+                    "type": "boolean",
+                    "example": "false"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "resEmbedSessions": {
+        "type": "object",
+        "properties": {
+          "emailIdOfSigner": {
+            "type": "string",
+            "example": "mtariq@accountsight.com"
+          },
+          "embeddedToken": {
+            "type": "string",
+            "example": "EMBEDDED_TOKEN"
+          },
+          "embeddedSessionURL": {
+            "type": "string",
+            "example": "UNIQUE_EMBEDDED_SESSION_URL"
+          }
+        }
+      },
+      "createFolder": {
+        "type": "object",
+        "properties": {
+          "folderName": {
+            "type": "string",
+            "example": "Sample Documents"
+          },
+          "fileUrls": {
+            "type": "array",
+            "xml": {
+              "name": "fileUrl",
+              "wrapped": true
+            },
+            "items": {
+              "type": "string",
+              "example": "URL_TO_DOCUMENT_1"
+            }
+          },
+          "fileNames": {
+            "type": "array",
+            "xml": {
+              "name": "fileUrl",
+              "wrapped": true
+            },
+            "items": {
+              "type": "string",
+              "example": "document_1.pdf"
+            }
+          },
+          "processTextTags": {
+            "type": "boolean",
+            "example": "true"
+          },
+          "signInSequence": {
+            "type": "boolean",
+            "example": "false"
+          },
+          "inPersonEnable": {
+            "type": "boolean",
+            "example": "false"
+          },
+          "custom_field1": {
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Sample Documents",
+                "example": "NAME"
+              },
+              "value": {
+                "type": "string",
+                "description": "Sample Documents",
+                "example": "VALUE"
+              }
+            }
+          },
+          "custom_field2": {
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Sample Documents",
+                "example": "NAME"
+              },
+              "value": {
+                "type": "string",
+                "description": "Sample Documents",
+                "example": "VALUE"
+              }
+            }
+          },
+          "sendNow": {
+            "type": "boolean",
+            "example": "false"
+          },
+          "emailTemplateId": {
+            "type": "integer",
+            "example": "2"
+          },
+          "emailTemplateCustomFields": {
+            "type": "array",
+            "xml": {
+              "name": "fileName",
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/emailTempCustomFields"
+            }
+          },
+          "createEmbeddedSendingSession": {
+            "type": "boolean",
+            "example": "false"
+          },
+          "fixRecipientParties": {
+            "type": "boolean",
+            "example": "true"
+          },
+          "fixDocuments": {
+            "type": "boolean",
+            "example": "true"
+          },
+          "sendSuccessUrl": {
+            "type": "string",
+            "example": "YOUR_PAGE_TO_REDIRECT_USER_FROM_EMBEDDED_SESSION"
+          },
+          "sendErrorUrl": {
+            "type": "string",
+            "example": "YOUR_PAGE_TO_REDIRECT_USER_FROM_EMBEDDED_SESSION"
+          },
+          "createEmbeddedSigningSession": {
+            "type": "boolean",
+            "example": "true"
+          },
+          "createEmbeddedSigningSessionForAllParties": {
+            "type": "boolean",
+            "example": "false"
+          },
+          "embeddedSignersEmailIds": {
+            "type": "array",
+            "xml": {
+              "name": "fileName",
+              "wrapped": true
+            },
+            "items": {
+              "type": "string",
+              "example": "FIRST_EMBEDDED_SIGNER_EMAIL"
+            }
+          },
+          "signSuccessUrl": {
+            "type": "string",
+            "example": "YOUR_PAGE_TO_REDIRECT_USER_FROM_EMBEDDED_SESSION"
+          },
+          "signDeclineUrl": {
+            "type": "string",
+            "example": "YOUR_PAGE_TO_REDIRECT_USER_FROM_EMBEDDED_SESSION"
+          },
+          "signLaterUrl": {
+            "type": "string",
+            "example": "YOUR_PAGE_TO_REDIRECT_USER_FROM_EMBEDDED_SESSION"
+          },
+          "signErrorUrl": {
+            "type": "string",
+            "example": "YOUR_PAGE_TO_REDIRECT_USER_FROM_EMBEDDED_SESSION"
+          },
+          "themeColor": {
+            "type": "string",
+            "example": "ANY_CSS_COLOR_TO_MATCH_YOUR_APPLICATION"
+          },
+          "parties": {
+            "type": "array",
+            "xml": {
+              "name": "fileName",
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/parties"
+            }
+          },
+          "fields": {
+            "type": "array",
+            "xml": {
+              "name": "fileName",
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/fields"
+            }
+          },
+          "senderEmail": {
+            "type": "object",
+            "example": "user2@example.com"
+          }
+        }
+      },
+      "emailTempCustomFields": {
+        "type": "object",
+        "properties": {
+          "tag": {
+            "type": "string",
+            "description": "Sample Documents",
+            "example": "CUSTOM_TAGS_2"
+          },
+          "type": {
+            "type": "string",
+            "description": "Sample Documents",
+            "example": "hyperlink"
+          },
+          "value": {
+            "type": "string",
+            "description": "Sample Documents",
+            "example": "click here's"
+          },
+          "url": {
+            "type": "string",
+            "description": "Sample Documents",
+            "example": "HYPERTEXT_REFERENCE"
+          }
+        }
+      },
+      "parties": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "Sample Documents",
+            "example": "FIRST_NAME_OF_RECIPIENT_PARTY"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Sample Documents",
+            "example": "LAST_NAME_OF_RECIPIENT_PARTY"
+          },
+          "emailId": {
+            "type": "string",
+            "description": "Sample Documents",
+            "example": "EMAIL_ID_OF_RECIPIENT_PARTY"
+          },
+          "permission": {
+            "type": "string",
+            "description": "Sample Documents",
+            "example": "FILL_FIELDS_AND_SIGN"
+          },
+          "sequence": {
+            "type": "integer",
+            "description": "Sample Documents",
+            "example": 1
+          },
+          "hostEmailId": {
+            "type": "string",
+            "description": "Sample Documents",
+            "example": "EMAIL_ID_OF_INPERSON_ADMINISTRATOR"
+          },
+          "allowNameChange": {
+            "type": "boolean",
+            "description": "",
+            "example": true
+          }
+        }
+      },
+      "fields": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Sample Documents",
+            "example": "text"
+          },
+          "x": {
+            "type": "integer",
+            "description": "Sample Documents",
+            "example": 100
+          },
+          "y": {
+            "type": "integer",
+            "description": "Sample Documents",
+            "example": 50
+          },
+          "width": {
+            "type": "integer",
+            "description": "Sample Documents",
+            "example": 60
+          },
+          "height": {
+            "type": "integer",
+            "description": "Sample Documents",
+            "example": 20
+          },
+          "documentNumber": {
+            "type": "integer",
+            "description": "Sample Documents",
+            "example": 1
+          },
+          "pageNumber": {
+            "type": "integer",
+            "description": "Sample Documents",
+            "example": 1
+          },
+          "tabOrder": {
+            "type": "integer",
+            "description": "Sample Documents",
+            "example": 1
+          },
+          "party": {
+            "type": "integer",
+            "description": "Sample Documents",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Sample Documents",
+            "example": "optional name"
+          },
+          "tooltip": {
+            "type": "string",
+            "description": "Sample Documents",
+            "example": ""
+          },
+          "value": {
+            "type": "string",
+            "description": "Sample Documents",
+            "example": "optional value"
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Sample Documents",
+            "example": true
+          },
+          "characterLimit": {
+            "type": "integer",
+            "description": "Sample Documents",
+            "example": 100
+          },
+          "fontSize": {
+            "type": "integer",
+            "description": "Sample Documents",
+            "example": 12
+          },
+          "fontColor": {
+            "type": "string",
+            "description": "Sample Documents",
+            "example": "#000000"
+          },
+          "validation": {
+            "type": "string",
+            "description": "Sample Documents",
+            "example": "Letters"
+          }
+        }
+      },
+      "resDocumentsList": {
+        "type": "object",
+        "properties": {
+          "documentId": {
+            "type": "integer",
+            "description": "Sample Documents",
+            "example": 420
+          },
+          "companyId": {
+            "type": "integer",
+            "description": "Sample Documents",
+            "example": 11
+          },
+          "contractCreatedBy": {
+            "type": "integer",
+            "description": "Sample Documents",
+            "example": 1
+          },
+          "contractCreatedOn": {
+            "type": "integer",
+            "description": "Sample Documents",
+            "example": 1441268055000
+          },
+          "contractType": {
+            "type": "string",
+            "description": "Sample Documents",
+            "example": "W4"
+          },
+          "contractStatus": {
+            "type": "string",
+            "description": "Sample Documents",
+            "example": "WAITING_FOR_SIGNATURE"
+          },
+          "editable": {
+            "type": "boolean",
+            "description": "",
+            "example": true
+          },
+          "contractVersionId": {
+            "type": "integer",
+            "description": "Sample Documents",
+            "example": 488
+          },
+          "contractVersionName": {
+            "type": "string",
+            "description": "Sample Documents",
+            "example": "fw4"
+          },
+          "contractVersionDesc": {
+            "type": "string",
+            "description": "Sample Documents",
+            "example": "this is a non editable form W4"
+          },
+          "versionCreatedby": {
+            "type": "integer",
+            "description": "Sample Documents",
+            "example": 1
+          },
+          "versionCreatedOn": {
+            "type": "integer",
+            "description": "Sample Documents",
+            "example": 1441268055000
+          },
+          "contractVersionNumber": {
+            "type": "integer",
+            "description": "Sample Documents",
+            "example": 1
+          }
+        }
+      },
+      "resFolderRecParties": {
+        "type": "object",
+        "properties": {
+          "partyId": {
+            "type": "integer",
+            "description": "",
+            "example": 52
+          },
+          "partyDetails": {
+            "$ref": "#/components/schemas/parties"
+          },
+          "contractPermissions": {
+            "type": "string",
+            "description": "",
+            "example": "FILL_FIELDS_AND_SIGN"
+          },
+          "partySequence": {
+            "type": "integer",
+            "description": "",
+            "example": 1
+          },
+          "workflowSignSequence": {
+            "type": "integer",
+            "description": "",
+            "example": 1
+          },
+          "envelopeId": {
+            "type": "integer",
+            "description": "",
+            "example": 179
+          },
+          "sharingMode": {
+            "type": "string",
+            "description": "",
+            "example": "email"
+          },
+          "folderAccessURL": {
+            "type": "string",
+            "description": "",
+            "example": "https://www.esigngenie.com/esign/viewDocumentDirect?encrDocId=QoS4qeiO870mBXNbcuUWYA%3D%3D&partyId=52"
+          }
+        }
+      },
+      "updateEnvelopeFields": {
+        "type": "object",
+        "properties": {
+          "folderId": {
+            "type": "string",
+            "example": "FOLDER_ID"
+          },
+          "custom_field1": {
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Sample Documents",
+                "example": "NAME"
+              },
+              "value": {
+                "type": "string",
+                "description": "Sample Documents",
+                "example": "VALUE"
+              }
+            }
+          },
+          "custom_field2": {
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Sample Documents",
+                "example": "NAME"
+              },
+              "value": {
+                "type": "string",
+                "description": "Sample Documents",
+                "example": "VALUE"
+              }
+            }
+          },
+          "FIELD1_NAME": {
+            "type": "string",
+            "example": "VALUE"
+          },
+          "FIELD2_NAME": {
+            "type": "string",
+            "example": "VALUE"
+          }
+        }
+      },
+      "resUpdateEnvelopFields": {
+        "allOf": [
+          {
+            "type": "object"
+          },
+          {
+            "properties": {
+              "result": {
+                "type": "string",
+                "example": "success"
+              },
+              "custom_field1": {
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Sample Documents",
+                    "example": "NAME"
+                  },
+                  "value": {
+                    "type": "string",
+                    "description": "Sample Documents",
+                    "example": "VALUE"
+                  }
+                }
+              },
+              "custom_field2": {
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Sample Documents",
+                    "example": "NAME"
+                  },
+                  "value": {
+                    "type": "string",
+                    "description": "Sample Documents",
+                    "example": "VALUE"
+                  }
+                }
+              },
+              "allFieldsNameValue": {
+                "type": "array",
+                "xml": {
+                  "name": "allFieldsNameValue",
+                  "wrapped": true
+                },
+                "items": {
+                  "$ref": "#/components/schemas/resAllFieldsNameValue"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "resAllFieldsNameValue": {
+        "type": "object",
+        "properties": {
+          "fieldId": {
+            "type": "integer",
+            "example": 44796
+          },
+          "documentId": {
+            "type": "integer",
+            "example": 4096
+          },
+          "documentVersionId": {
+            "type": "integer",
+            "example": 4180
+          },
+          "fieldType": {
+            "type": "string",
+            "example": "textfield"
+          },
+          "name": {
+            "type": "string",
+            "example": "FIELD1_NAME"
+          },
+          "value": {
+            "type": "string",
+            "example": "VALUE"
+          }
+        }
+      },
+      "resFoldersMyFolders": {
+        "allOf": [
+          {
+            "type": "object"
+          },
+          {
+            "properties": {
+              "result": {
+                "type": "string",
+                "example": "success"
+              },
+              "folder": {
+                "type": "object",
+                "properties": {
+                  "folderId": {
+                    "type": "integer",
+                    "example": "179"
+                  },
+                  "folderName": {
+                    "type": "string",
+                    "example": "fw4"
+                  },
+                  "folderAuthorId": {
+                    "type": "integer",
+                    "example": "1"
+                  },
+                  "folderCompanyId": {
+                    "type": "integer",
+                    "example": "11"
+                  },
+                  "folderCreationDate": {
+                    "type": "integer",
+                    "example": "1441268056000"
+                  },
+                  "folderSentDate": {
+                    "type": "integer",
+                    "example": "1442470444000"
+                  },
+                  "folderStatus": {
+                    "type": "string",
+                    "example": "SHARED"
+                  },
+                  "folderDocumentIds": {
+                    "type": "array",
+                    "xml": {
+                      "name": "fileName",
+                      "wrapped": true
+                    },
+                    "items": {
+                      "type": "integer",
+                      "example": 420
+                    }
+                  },
+                  "documentsList": {
+                    "type": "array",
+                    "xml": {
+                      "name": "fileName",
+                      "wrapped": true
+                    },
+                    "items": {
+                      "$ref": "#/components/schemas/resDocumentsList"
+                    }
+                  },
+                  "folderRecipientParties": {
+                    "type": "array",
+                    "xml": {
+                      "name": "fileName",
+                      "wrapped": true
+                    },
+                    "items": {
+                      "$ref": "#/components/schemas/resFolderRecParties"
+                    }
+                  },
+                  "folderAccessURLForAuthor": {
+                    "type": "string",
+                    "example": "https://www.esigngenie.com/esign/viewDocumentDirect?encrDocId=jZvyX4AFC2kv7AU%2BBtM16A%3D%3D&partyId=1"
+                  },
+                  "bulkId": {
+                    "type": "integer",
+                    "example": "0"
+                  },
+                  "enforceSignWorkflow": {
+                    "type": "boolean",
+                    "example": "false"
+                  },
+                  "currentWorkflowStep": {
+                    "type": "integer",
+                    "example": "1"
+                  },
+                  "transactionSource": {
+                    "type": "string",
+                    "example": "API-1-via_file_upload"
+                  },
+                  "editable": {
+                    "type": "boolean",
+                    "example": "false"
+                  },
+                  "inPersonSignable": {
+                    "type": "boolean",
+                    "example": "false"
+                  },
+                  "overrideAccountReminders": {
+                    "type": "boolean",
+                    "example": "false"
+                  },
+                  "envelopeId": {
+                    "type": "integer",
+                    "example": 86377
+                  },
+                  "envelopeName": {
+                    "type": "string",
+                    "example": "eSignGenie Sample"
+                  },
+                  "envelopeOriginatorId": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "envelopeCompanyId": {
+                    "type": "integer",
+                    "example": 12
+                  },
+                  "envelopeDate": {
+                    "type": "integer",
+                    "example": 1473332678000
+                  },
+                  "envelopeSharedDate": {
+                    "type": "integer",
+                    "example": null
+                  },
+                  "envelopeStatus": {
+                    "type": "string",
+                    "example": "DRAFT"
+                  },
+                  "envelopeContractIds": {
+                    "type": "array",
+                    "xml": {
+                      "name": "fileName",
+                      "wrapped": true
+                    },
+                    "items": {
+                      "type": "integer",
+                      "example": 101857
+                    }
+                  },
+                  "envelopePartyPermissions": {
+                    "type": "array",
+                    "xml": {
+                      "name": "envelopePartyPermissions",
+                      "wrapped": true
+                    },
+                    "items": {
+                      "$ref": "#/components/schemas/resEnvelopePartyPer"
+                    }
+                  }
+                }
+              },
+              "allFields": {
+                "type": "array",
+                "xml": {
+                  "name": "envelopePartyPermissions",
+                  "wrapped": true
+                },
+                "items": {
+                  "$ref": "#/components/schemas/resAllFields"
+                }
+              },
+              "allFieldsNameValue": {
+                "type": "array",
+                "xml": {
+                  "name": "envelopePartyPermissions",
+                  "wrapped": true
+                },
+                "items": {
+                  "$ref": "#/components/schemas/resAllFieldsNameValue"
+                }
+              },
+              "Folder History": {
+                "type": "array",
+                "xml": {
+                  "name": "envelopePartyPermissions",
+                  "wrapped": true
+                },
+                "items": {
+                  "$ref": "#/components/schemas/resFolderHistory"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "resEnvelopePartyPer": {
+        "type": "object",
+        "properties": {
+          "partyId": {
+            "type": "integer",
+            "description": "",
+            "example": 1
+          },
+          "partyDetails": {
+            "$ref": "#/components/schemas/resFolderRecParties"
+          }
+        }
+      },
+      "resAllFields": {
+        "type": "object",
+        "properties": {
+          "fieldTagId": {
+            "type": "integer",
+            "example": 898441
+          },
+          "contractId": {
+            "type": "integer",
+            "example": 101857
+          },
+          "versionId": {
+            "type": "integer",
+            "example": 101715
+          },
+          "templateId": {
+            "type": "integer",
+            "example": 0
+          },
+          "companyId": {
+            "type": "integer",
+            "example": 12
+          },
+          "fieldType": {
+            "type": "string",
+            "example": "textfield"
+          },
+          "documentPageNumber": {
+            "type": "integer",
+            "example": 1
+          },
+          "coordinateXRatio": {
+            "type": "integer",
+            "format": "float",
+            "example": 0.14267
+          },
+          "coordinateYRatio": {
+            "type": "integer",
+            "format": "float",
+            "example": 0.421053
+          },
+          "elementWidthRatio": {
+            "type": "integer",
+            "format": "float",
+            "example": 0.212766
+          },
+          "elementHeightRatio": {
+            "type": "integer",
+            "format": "float",
+            "example": 0.0205592
+          },
+          "docFieldId": {
+            "type": "integer",
+            "example": 898441
+          },
+          "dependent": {
+            "type": "boolean",
+            "example": false
+          },
+          "parentTagId": {
+            "type": "integer",
+            "example": ""
+          },
+          "parentTagValueToCompare": {
+            "type": "string",
+            "example": ""
+          },
+          "conditionResult": {
+            "type": "string",
+            "example": null
+          },
+          "tabOrder": {
+            "type": "string",
+            "example": null
+          },
+          "textfieldName": {
+            "type": "string",
+            "example": "Name of party"
+          },
+          "value": {
+            "type": "string",
+            "example": ""
+          },
+          "description": {
+            "type": "string",
+            "example": ""
+          },
+          "partyResponsible": {
+            "type": "integer",
+            "example": 1
+          },
+          "required": {
+            "type": "boolean",
+            "example": false
+          },
+          "multiLine": {
+            "type": "boolean",
+            "example": false
+          },
+          "fontSize": {
+            "type": "integer",
+            "example": 8
+          },
+          "fontFamily": {
+            "type": "string",
+            "example": "default"
+          },
+          "fontColor": {
+            "type": "string",
+            "example": "#000000"
+          },
+          "readOnly": {
+            "type": "boolean",
+            "example": false
+          },
+          "systemField": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "resFolderHistory": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Doe"
+          },
+          "email": {
+            "type": "string",
+            "example": "johndoe@esigngenie.com"
+          },
+          "envelopeId": {
+            "type": "integer",
+            "example": 86377
+          },
+          "dateChanged": {
+            "type": "integer",
+            "example": 1564737942000
+          },
+          "changeDoneByParty": {
+            "type": "integer",
+            "example": 1
+          },
+          "action": {
+            "type": "string",
+            "example": "Created"
+          }
+        }
+      },
+      "movetorecyclebin": {
+        "type": "object",
+        "properties": {
+          "folderIds": {
+            "type": "array",
+            "xml": {
+              "name": "folderIds",
+              "wrapped": true
+            },
+            "items": {
+              "type": "integer",
+              "example": 219
+            }
+          }
+        }
+      },
+      "resMoveToRecyclebin": {
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "result": {
+                "type": "string",
+                "example": "success"
+              }
+            }
+          }
+        ]
+      },
+      "createTemplate": {
+        "type": "object",
+        "properties": {
+          "templateUrl": {
+            "type": "string",
+            "example": "URL_TO_DOCUMENT"
+          },
+          "templateName": {
+            "type": "string",
+            "example": "template.pdf"
+          },
+          "processTextTags": {
+            "type": "boolean",
+            "example": true
+          },
+          "numberOfParties": {
+            "type": "integer",
+            "example": 2
+          },
+          "themeColor": {
+            "type": "string",
+            "example": "#f4e542"
+          },
+          "createEmbeddedTemplateSession": {
+            "type": "boolean",
+            "example": true
+          },
+          "shareAll": {
+            "type": "boolean",
+            "example": true
+          },
+          "authorEmail": {
+            "type": "string",
+            "example": "author@example.com"
+          },
+          "redirectURL": {
+            "type": "string",
+            "example": "YOUR_PAGE_TO_REDIRECT_USER_FROM_EMBEDDED_SESSION"
+          },
+          "fields": {
+            "type": "array",
+            "xml": {
+              "name": "fields",
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/fields"
+            }
+          }
+        }
+      },
+      "resCreateTemplate": {
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "embeddedToken": {
+                "type": "string",
+                "example": "EMBEDDED_TOKEN"
+              },
+              "embeddedTemplateSessionURL": {
+                "type": "string",
+                "example": "UNIQUE_EMBEDDED_SESSION_URL"
+              },
+              "template": {
+                "type": "object",
+                "properties": {
+                  "templateId": {
+                    "type": "integer",
+                    "example": 174
+                  },
+                  "templateName": {
+                    "type": "string",
+                    "example": "testTemplate"
+                  },
+                  "templateDesc": {
+                    "type": "string",
+                    "example": null
+                  },
+                  "templateType": {
+                    "type": "string",
+                    "example": null
+                  },
+                  "templateCreationDate": {
+                    "type": "string",
+                    "example": null
+                  },
+                  "templateLastUpdateDate": {
+                    "type": "string",
+                    "example": null
+                  },
+                  "editable": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "numberOfParties": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "totalPages": {
+                    "type": "integer",
+                    "example": 0
+                  },
+                  "companyId": {
+                    "type": "integer",
+                    "example": 50
+                  },
+                  "templateCreatedBy": {
+                    "type": "object",
+                    "properties": {
+                      "partyId": {
+                        "type": "integer",
+                        "example": 3062
+                      },
+                      "firstName": {
+                        "type": "string",
+                        "example": "Govind"
+                      },
+                      "lastName": {
+                        "type": "string",
+                        "example": "Bhandari"
+                      },
+                      "emailId": {
+                        "type": "string",
+                        "example": "gbhandari@esigngenie.com"
+                      },
+                      "address": {
+                        "type": "string",
+                        "example": ""
+                      },
+                      "dateCreated": {
+                        "type": "integer",
+                        "example": 1503527343000
+                      },
+                      "optOutEmails": {
+                        "type": "boolean",
+                        "example": false
+                      },
+                      "companyId": {
+                        "type": "integer",
+                        "example": 50
+                      },
+                      "userRole": {
+                        "type": "string",
+                        "example": "super_admin"
+                      },
+                      "userAddedDate": {
+                        "type": "integer",
+                        "example": 1504550757000
+                      },
+                      "department": {
+                        "type": "string",
+                        "example": ""
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": ""
+                      },
+                      "active": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "requestLocale": {
+                        "type": "string",
+                        "example": "en"
+                      },
+                      "share_among_department": {
+                        "type": "boolean",
+                        "example": false
+                      },
+                      "managerId": {
+                        "type": "integer",
+                        "example": null
+                      }
+                    }
+                  },
+                  "templateLastUpdatedBy": {
+                    "type": "object",
+                    "properties": {
+                      "partyId": {
+                        "type": "integer",
+                        "example": 3062
+                      },
+                      "firstName": {
+                        "type": "string",
+                        "example": "Govind"
+                      },
+                      "lastName": {
+                        "type": "string",
+                        "example": "Bhandari"
+                      },
+                      "emailId": {
+                        "type": "string",
+                        "example": "gbhandari@esigngenie.com"
+                      },
+                      "address": {
+                        "type": "string",
+                        "example": ""
+                      },
+                      "dateCreated": {
+                        "type": "integer",
+                        "example": 1503527343000
+                      },
+                      "optOutEmails": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "companyId": {
+                        "type": "integer",
+                        "example": 50
+                      },
+                      "userRole": {
+                        "type": "string",
+                        "example": "super_admin"
+                      },
+                      "userAddedDate": {
+                        "type": "integer",
+                        "example": 1504550757000
+                      },
+                      "department": {
+                        "type": "string",
+                        "example": ""
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": ""
+                      },
+                      "active": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "requestLocale": {
+                        "type": "string",
+                        "example": "en"
+                      },
+                      "share_among_department": {
+                        "type": "boolean",
+                        "example": false
+                      },
+                      "managerId": {
+                        "type": "string",
+                        "example": null
+                      }
+                    }
+                  },
+                  "shareAll": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "templateCustomName": {
+                    "type": "string",
+                    "example": null
+                  }
+                }
+              },
+              "result": {
+                "type": "string",
+                "example": "success"
+              },
+              "message": {
+                "type": "string",
+                "example": "template successfully created"
+              }
+            }
+          }
+        ]
+      },
+      "createtemplateFolder": {
+        "type": "object",
+        "properties": {
+          "folderName": {
+            "type": "string",
+            "example": "Sample Documents"
+          },
+          "templateIds": {
+            "type": "array",
+            "xml": {
+              "name": "templateIds",
+              "wrapped": true
+            },
+            "items": {
+              "type": "string",
+              "example": "ID_OF_TEMPLATE_A"
+            }
+          },
+          "fields": {
+            "type": "object",
+            "properties": {
+              "FIELD1_NAME": {
+                "type": "string",
+                "example": "FIELD1_VALUE"
+              },
+              "FIELD2_NAME": {
+                "type": "string",
+                "example": "FIELD2_VALUE"
+              }
+            }
+          },
+          "parties": {
+            "type": "array",
+            "xml": {
+              "name": "parties",
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/parties"
+            }
+          },
+          "senderEmail": {
+            "type": "string",
+            "example": "user2@example.com"
+          },
+          "signInSequence": {
+            "type": "boolean",
+            "example": false
+          },
+          "custom_field1": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "NAME"
+              },
+              "value": {
+                "type": "string",
+                "example": "VALUE"
+              }
+            }
+          },
+          "custom_field2": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "NAME"
+              },
+              "value": {
+                "type": "string",
+                "example": "VALUE"
+              }
+            }
+          },
+          "sendNow": {
+            "type": "boolean",
+            "example": false
+          },
+          "emailTemplateId": {
+            "type": "integer",
+            "example": 2
+          },
+          "emailTemplateCustomFields": {
+            "type": "array",
+            "xml": {
+              "name": "emailTemplateCustomFields",
+              "wrapped": true
+            },
+            "items": {
+              "properties": {
+                "tag": {
+                  "type": "string",
+                  "example": "CUSTOM_TAGS_1"
+                },
+                "type": {
+                  "type": "string",
+                  "example": "plain"
+                },
+                "value": {
+                  "type": "string",
+                  "example": "Please click on the View Document(s) link below to review and esign the documents as required."
+                }
+              }
+            }
+          },
+          "createEmbeddedSendingSession": {
+            "type": "boolean",
+            "example": false
+          },
+          "inPersonEnable": {
+            "type": "boolean",
+            "example": false
+          },
+          "fixRecipientParties": {
+            "type": "boolean",
+            "example": true
+          },
+          "fixDocuments": {
+            "type": "boolean",
+            "example": true
+          },
+          "sendSuccessUrl": {
+            "type": "string",
+            "example": "YOUR_PAGE_TO_REDIRECT_USER_FROM_EMBEDDED_SESSION"
+          },
+          "sendErrorUrl": {
+            "type": "string",
+            "example": "YOUR_PAGE_TO_REDIRECT_USER_FROM_EMBEDDED_SESSION"
+          },
+          "createEmbeddedSigningSession": {
+            "type": "boolean",
+            "example": true
+          },
+          "createEmbeddedSigningSessionForAllParties": {
+            "type": "boolean",
+            "example": false
+          },
+          "embeddedSignersEmailIds": {
+            "type": "array",
+            "xml": {
+              "name": "embeddedSignersEmailIds",
+              "wrapped": true
+            },
+            "items": {
+              "type": "string",
+              "example": "FIRST_EMBEDDED_SIGNER_EMAIL"
+            }
+          },
+          "signSuccessUrl": {
+            "type": "string",
+            "example": "YOUR_PAGE_TO_REDIRECT_USER_FROM_EMBEDDED_SESSION"
+          },
+          "signDeclineUrl": {
+            "type": "string",
+            "example": "YOUR_PAGE_TO_REDIRECT_USER_FROM_EMBEDDED_SESSION"
+          },
+          "signLaterUrl": {
+            "type": "string",
+            "example": "YOUR_PAGE_TO_REDIRECT_USER_FROM_EMBEDDED_SESSION"
+          },
+          "signErrorUrl": {
+            "type": "string",
+            "example": "YOUR_PAGE_TO_REDIRECT_USER_FROM_EMBEDDED_SESSION"
+          },
+          "themeColor": {
+            "type": "string",
+            "example": "ANY_CSS_COLOR_TO_MATCH_YOUR_APPLICATION"
+          }
+        }
+      },
+      "resCreateTemplateFolder": {
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "result": {
+                "type": "string",
+                "example": "success"
+              },
+              "message": {
+                "type": "string",
+                "example": "folder of document(s) successfully created"
+              },
+              "embeddedSigningSessions": {
+                "type": "array",
+                "xml": {
+                  "name": "embeddedSigningSessions",
+                  "wrapped": true
+                },
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "emailIdOfSigner": {
+                      "type": "string",
+                      "example": "mtariq@accountsight.com"
+                    },
+                    "embeddedToken": {
+                      "type": "string",
+                      "example": "EMBEDDED_TOKEN"
+                    },
+                    "embeddedSessionURL": {
+                      "type": "string",
+                      "example": "UNIQUE_EMBEDDED_SESSION_URL"
+                    }
+                  }
+                }
+              },
+              "folder": {
+                "type": "array",
+                "xml": {
+                  "name": "folder",
+                  "wrapped": true
+                },
+                "items": {
+                  "properties": {
+                    "folderId": {
+                      "type": "integer",
+                      "example": "179"
+                    },
+                    "folderName": {
+                      "type": "string",
+                      "example": "fw4"
+                    },
+                    "folderAuthorId": {
+                      "type": "integer",
+                      "example": "1"
+                    },
+                    "folderCompanyId": {
+                      "type": "integer",
+                      "example": "11"
+                    },
+                    "folderCreationDate": {
+                      "type": "integer",
+                      "example": "1441268056000"
+                    },
+                    "folderSentDate": {
+                      "type": "integer",
+                      "example": "1442470444000"
+                    },
+                    "folderStatus": {
+                      "type": "string",
+                      "example": "SHARED"
+                    },
+                    "folderDocumentIds": {
+                      "type": "array",
+                      "xml": {
+                        "name": "fileName",
+                        "wrapped": true
+                      },
+                      "items": {
+                        "type": "integer",
+                        "example": 420
+                      }
+                    },
+                    "documentsList": {
+                      "type": "array",
+                      "xml": {
+                        "name": "fileName",
+                        "wrapped": true
+                      },
+                      "items": {
+                        "$ref": "#/components/schemas/resDocumentsList"
+                      }
+                    },
+                    "folderRecipientParties": {
+                      "type": "array",
+                      "xml": {
+                        "name": "fileName",
+                        "wrapped": true
+                      },
+                      "items": {
+                        "$ref": "#/components/schemas/resFolderRecParties"
+                      }
+                    },
+                    "bulkId": {
+                      "type": "integer",
+                      "example": "0"
+                    },
+                    "enforceSignWorkflow": {
+                      "type": "boolean",
+                      "example": "false"
+                    },
+                    "currentWorkflowStep": {
+                      "type": "integer",
+                      "example": "1"
+                    },
+                    "transactionSource": {
+                      "type": "string",
+                      "example": "API-1-via_file_upload"
+                    },
+                    "editable": {
+                      "type": "boolean",
+                      "example": "false"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "resTemplatesList": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "string",
+            "example": "result"
+          },
+          "total_templates": {
+            "type": "integer",
+            "example": 9
+          },
+          "template": {
+            "type": "object",
+            "properties": {
+              "templateId": {
+                "type": "integer",
+                "example": 174
+              },
+              "templateName": {
+                "type": "string",
+                "example": "testTemplate"
+              },
+              "templateDesc": {
+                "type": "string",
+                "example": null
+              },
+              "templateType": {
+                "type": "string",
+                "example": null
+              },
+              "templateCreationDate": {
+                "type": "string",
+                "example": null
+              },
+              "templateLastUpdateDate": {
+                "type": "string",
+                "example": null
+              },
+              "editable": {
+                "type": "boolean",
+                "example": false
+              },
+              "numberOfParties": {
+                "type": "integer",
+                "example": 1
+              },
+              "totalPages": {
+                "type": "integer",
+                "example": 0
+              },
+              "companyId": {
+                "type": "integer",
+                "example": 50
+              },
+              "templateCreatedBy": {
+                "type": "object",
+                "properties": {
+                  "partyId": {
+                    "type": "integer",
+                    "example": 3062
+                  },
+                  "firstName": {
+                    "type": "string",
+                    "example": "Govind"
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "example": "Bhandari"
+                  },
+                  "emailId": {
+                    "type": "string",
+                    "example": "gbhandari@esigngenie.com"
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "dateCreated": {
+                    "type": "integer",
+                    "example": 1503527343000
+                  },
+                  "optOutEmails": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "companyId": {
+                    "type": "integer",
+                    "example": 50
+                  },
+                  "userRole": {
+                    "type": "string",
+                    "example": "super_admin"
+                  },
+                  "userAddedDate": {
+                    "type": "integer",
+                    "example": 1504550757000
+                  },
+                  "department": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "title": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "active": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "requestLocale": {
+                    "type": "string",
+                    "example": "en"
+                  },
+                  "share_among_department": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "managerId": {
+                    "type": "integer",
+                    "example": null
+                  }
+                }
+              },
+              "templateLastUpdatedBy": {
+                "type": "object",
+                "properties": {
+                  "partyId": {
+                    "type": "integer",
+                    "example": 3062
+                  },
+                  "firstName": {
+                    "type": "string",
+                    "example": "Govind"
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "example": "Bhandari"
+                  },
+                  "emailId": {
+                    "type": "string",
+                    "example": "gbhandari@esigngenie.com"
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "dateCreated": {
+                    "type": "integer",
+                    "example": 1503527343000
+                  },
+                  "optOutEmails": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "companyId": {
+                    "type": "integer",
+                    "example": 50
+                  },
+                  "userRole": {
+                    "type": "string",
+                    "example": "super_admin"
+                  },
+                  "userAddedDate": {
+                    "type": "integer",
+                    "example": 1504550757000
+                  },
+                  "department": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "title": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "active": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "requestLocale": {
+                    "type": "string",
+                    "example": "en"
+                  },
+                  "share_among_department": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "managerId": {
+                    "type": "string",
+                    "example": null
+                  }
+                }
+              },
+              "shareAll": {
+                "type": "boolean",
+                "example": false
+              },
+              "templateCustomName": {
+                "type": "string",
+                "example": null
+              }
+            }
+          }
+        }
+      },
+      "resTemplatesMyTemplate": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "string",
+            "example": "success"
+          },
+          "template": {
+            "type": "object",
+            "properties": {
+              "templateId": {
+                "type": "integer",
+                "example": 174
+              },
+              "templateName": {
+                "type": "string",
+                "example": "testTemplate"
+              },
+              "templateDesc": {
+                "type": "string",
+                "example": null
+              },
+              "templateType": {
+                "type": "string",
+                "example": null
+              },
+              "templateCreationDate": {
+                "type": "string",
+                "example": null
+              },
+              "templateLastUpdateDate": {
+                "type": "string",
+                "example": null
+              },
+              "editable": {
+                "type": "boolean",
+                "example": false
+              },
+              "numberOfParties": {
+                "type": "integer",
+                "example": 1
+              },
+              "totalPages": {
+                "type": "integer",
+                "example": 0
+              },
+              "companyId": {
+                "type": "integer",
+                "example": 50
+              },
+              "templateCreatedBy": {
+                "type": "object",
+                "properties": {
+                  "partyId": {
+                    "type": "integer",
+                    "example": 3062
+                  },
+                  "firstName": {
+                    "type": "string",
+                    "example": "Govind"
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "example": "Bhandari"
+                  },
+                  "emailId": {
+                    "type": "string",
+                    "example": "gbhandari@esigngenie.com"
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "dateCreated": {
+                    "type": "integer",
+                    "example": 1503527343000
+                  },
+                  "optOutEmails": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "companyId": {
+                    "type": "integer",
+                    "example": 50
+                  },
+                  "userRole": {
+                    "type": "string",
+                    "example": "super_admin"
+                  },
+                  "userAddedDate": {
+                    "type": "integer",
+                    "example": 1504550757000
+                  },
+                  "department": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "title": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "active": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "requestLocale": {
+                    "type": "string",
+                    "example": "en"
+                  },
+                  "share_among_department": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "managerId": {
+                    "type": "integer",
+                    "example": null
+                  }
+                }
+              },
+              "templateLastUpdatedBy": {
+                "type": "object",
+                "properties": {
+                  "partyId": {
+                    "type": "integer",
+                    "example": 3062
+                  },
+                  "firstName": {
+                    "type": "string",
+                    "example": "Govind"
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "example": "Bhandari"
+                  },
+                  "emailId": {
+                    "type": "string",
+                    "example": "gbhandari@esigngenie.com"
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "dateCreated": {
+                    "type": "integer",
+                    "example": 1503527343000
+                  },
+                  "optOutEmails": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "companyId": {
+                    "type": "integer",
+                    "example": 50
+                  },
+                  "userRole": {
+                    "type": "string",
+                    "example": "super_admin"
+                  },
+                  "userAddedDate": {
+                    "type": "integer",
+                    "example": 1504550757000
+                  },
+                  "department": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "title": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "active": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "requestLocale": {
+                    "type": "string",
+                    "example": "en"
+                  },
+                  "share_among_department": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "managerId": {
+                    "type": "string",
+                    "example": null
+                  }
+                }
+              },
+              "shareAll": {
+                "type": "boolean",
+                "example": false
+              }
+            }
+          },
+          "allfields": {
+            "type": "array",
+            "xml": {
+              "name": "allfields",
+              "wrapped": true
+            },
+            "items": {
+              "properties": {
+                "fieldTagId": {
+                  "type": "integer",
+                  "example": 48
+                },
+                "contractId": {
+                  "type": "integer",
+                  "example": 0
+                },
+                "versionId": {
+                  "type": "integer",
+                  "example": 0
+                },
+                "templateId": {
+                  "type": "integer",
+                  "example": 46
+                },
+                "companyId": {
+                  "type": "integer",
+                  "example": 11
+                },
+                "fieldType": {
+                  "type": "string",
+                  "example": "textfield"
+                },
+                "documentPageNumber": {
+                  "type": "integer",
+                  "example": 1
+                },
+                "coordinateXRatio": {
+                  "type": "integer",
+                  "format": "float",
+                  "example": 0.142763
+                },
+                "coordinateYRatio": {
+                  "type": "integer",
+                  "format": "float",
+                  "example": 0.415264
+                },
+                "elementWidthRatio": {
+                  "type": "integer",
+                  "format": "float",
+                  "example": 0.197927
+                },
+                "elementHeightRatio": {
+                  "type": "integer",
+                  "format": "float",
+                  "example": 0.0304487
+                },
+                "docFieldId": {
+                  "type": "integer",
+                  "example": 48
+                },
+                "dependent": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "parentTagId": {
+                  "type": "string",
+                  "example": ""
+                },
+                "parentTagValueToCompare": {
+                  "type": "string",
+                  "example": ""
+                },
+                "conditionResult": {
+                  "type": "string",
+                  "example": null
+                },
+                "tabOrder": {
+                  "type": "string",
+                  "example": null
+                },
+                "textfieldName": {
+                  "type": "string",
+                  "example": null
+                },
+                "value": {
+                  "type": "string",
+                  "example": "Tariq"
+                },
+                "description": {
+                  "type": "string",
+                  "example": ""
+                },
+                "partyResponsible": {
+                  "type": "integer",
+                  "example": 1
+                },
+                "required": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "multiLine": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "fontSize": {
+                  "type": "integer",
+                  "example": 16
+                },
+                "fontFamily": {
+                  "type": "string",
+                  "example": "default"
+                },
+                "fontColor": {
+                  "type": "string",
+                  "example": "#800080"
+                },
+                "readOnly": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "systemField": {
+                  "type": "boolean",
+                  "example": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "GetEmailGroups": {
+        "type": "object",
+        "properties": {
+          "emailGroupNames": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "Email_Group_1"
+            }
+          }
+        }
+      },
+      "resGetEmailGroups": {
+        "type": "object",
+        "properties": {
+          "allEmailGroups": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "groupId": {
+                  "type": "integer",
+                  "example": 230
+                },
+                "groupName": {
+                  "type": "string",
+                  "example": "Email_Group_Name"
+                },
+                "groupDesc": {
+                  "type": "string",
+                  "example": "Email_Group_Description"
+                },
+                "dateCreated": {
+                  "type": "integer",
+                  "example": 1561549235000
+                },
+                "companyId": {
+                  "type": "integer",
+                  "example": 11
+                },
+                "parties": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "firstName": {
+                        "type": "string",
+                        "example": "Sandra"
+                      },
+                      "lastName": {
+                        "type": "string",
+                        "example": "Smith"
+                      },
+                      "emailId": {
+                        "type": "string",
+                        "example": "san_smith@esigngenie.com"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "CreateEmailGroup": {
+        "type": "object",
+        "properties": {
+          "emailGroupName": {
+            "type": "string",
+            "example": "Email_Group_1"
+          },
+          "emailGroupDescription": {
+            "type": "string",
+            "example": "Email_Group_Description"
+          },
+          "parties": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "firstName": {
+                  "type": "string",
+                  "example": "Sandra"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "Smith"
+                },
+                "emailId": {
+                  "type": "string",
+                  "example": "san_smith@esigngenie.com"
+                }
+              }
+            }
+          }
+        }
+      },
+      "resCreateEmailGroup": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "string",
+            "example": "success"
+          },
+          "message": {
+            "type": "string",
+            "example": "new email group successfully added"
+          },
+          "emailGroup": {
+            "type": "object",
+            "properties": {
+              "groupId": {
+                "type": "integer",
+                "example": 230
+              },
+              "groupName": {
+                "type": "string",
+                "example": "Email_Group_Name"
+              },
+              "groupDesc": {
+                "type": "string",
+                "example": "Email_Group_Description"
+              },
+              "dateCreated": {
+                "type": "integer",
+                "example": 1561549235000
+              },
+              "companyId": {
+                "type": "integer",
+                "example": 11
+              },
+              "parties": {
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "firstName": {
+                      "type": "string",
+                      "example": "Sandra"
+                    },
+                    "lastName": {
+                      "type": "string",
+                      "example": "Smith"
+                    },
+                    "emailId": {
+                      "type": "string",
+                      "example": "san_smith@esigngenie.com"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "CreateUser": {
+        "type": "object",
+        "required": [
+          "firstName",
+          "lastName",
+          "emailId",
+          "userRole"
+        ],
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "firstName": {
+                "type": "string",
+                "example": "Steve"
+              },
+              "lastName": {
+                "type": "string",
+                "example": "Rogers"
+              },
+              "emailId": {
+                "type": "string",
+                "example": "abc@gmail.com"
+              },
+              "address": {
+                "type": "string",
+                "example": "New Delhi, India"
+              },
+              "userRole": {
+                "type": "string",
+                "example": "admin"
+              },
+              "department": {
+                "type": "string",
+                "example": "DEV"
+              },
+              "title": {
+                "type": "string",
+                "example": "Tech Lead"
+              },
+              "managerId": {
+                "type": "integer",
+                "example": 101
+              },
+              "active": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          }
+        }
+      },
+      "resCreateUser": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "string",
+            "example": "success"
+          },
+          "message": {
+            "type": "string",
+            "example": "new user successfully added"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "partyId": {
+                "type": "integer",
+                "example": 54
+              },
+              "firstName": {
+                "type": "string",
+                "example": "Steve"
+              },
+              "lastName": {
+                "type": "string",
+                "example": "Rogers"
+              },
+              "emailId": {
+                "type": "string",
+                "example": "abc@gmail.com"
+              },
+              "address": {
+                "type": "string",
+                "example": "New Delhi, India"
+              },
+              "dateCreated": {
+                "type": "integer",
+                "example": null
+              },
+              "companyId": {
+                "type": "integer",
+                "example": 32567
+              },
+              "userRole": {
+                "type": "string",
+                "example": "admin"
+              },
+              "userAddedDate": {
+                "type": "integer",
+                "example": null
+              },
+              "department": {
+                "type": "string",
+                "example": "DEV"
+              },
+              "title": {
+                "type": "string",
+                "example": "Tech Lead"
+              },
+              "active": {
+                "type": "boolean",
+                "example": true
+              },
+              "requestLocale": {
+                "type": "string",
+                "example": "auto"
+              },
+              "managerId": {
+                "type": "integer",
+                "example": 101
+              }
+            }
+          }
+        }
+      },
+      "UpdateUser": {
+        "type": "object",
+        "required": [
+          "partyId",
+          "firstName",
+          "lastName",
+          "userRole"
+        ],
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "partyId": {
+                "type": "string",
+                "example": "54"
+              },
+              "firstName": {
+                "type": "string",
+                "example": "Steve"
+              },
+              "lastName": {
+                "type": "string",
+                "example": "Rogers"
+              },
+              "address": {
+                "type": "string",
+                "example": "New Delhi, India"
+              },
+              "userRole": {
+                "type": "string",
+                "example": "admin"
+              },
+              "department": {
+                "type": "string",
+                "example": "DEV"
+              },
+              "title": {
+                "type": "string",
+                "example": "Tech Lead"
+              },
+              "managerId": {
+                "type": "integer",
+                "example": 101
+              },
+              "active": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          }
+        }
+      },
+      "resUpdateUser": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "string",
+            "example": "success"
+          },
+          "message": {
+            "type": "string",
+            "example": "user 54 updated successfully."
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "partyId": {
+                "type": "integer",
+                "example": 54
+              },
+              "firstName": {
+                "type": "string",
+                "example": "Steve"
+              },
+              "lastName": {
+                "type": "string",
+                "example": "Rogers"
+              },
+              "emailId": {
+                "type": "string",
+                "example": "abc@gmail.com"
+              },
+              "address": {
+                "type": "string",
+                "example": "New Delhi, India"
+              },
+              "userRole": {
+                "type": "string",
+                "example": "admin"
+              },
+              "department": {
+                "type": "string",
+                "example": "DEV"
+              },
+              "title": {
+                "type": "string",
+                "example": "Tech Lead"
+              },
+              "active": {
+                "type": "boolean",
+                "example": true
+              },
+              "managerId": {
+                "type": "integer",
+                "example": 101
+              }
+            }
+          }
+        }
+      },
+      "resDeleteUser": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "string",
+            "example": "success"
+          },
+          "message": {
+            "type": "string",
+            "example": "user 54 deleted successfully"
+          }
+        }
+      },
+      "resUserList": {
+        "type": "object",
+        "properties": {
+          "usersList": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "partyId": {
+                  "type": "integer",
+                  "example": 54
+                },
+                "firstName": {
+                  "type": "string",
+                  "example": "Steve"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "Rogers"
+                },
+                "emailId": {
+                  "type": "string",
+                  "example": "abc@gmail.com"
+                },
+                "address": {
+                  "type": "string",
+                  "example": "New Delhi, India"
+                },
+                "dateCreated": {
+                  "type": "integer",
+                  "example": null
+                },
+                "companyId": {
+                  "type": "integer",
+                  "example": 32567
+                },
+                "userRole": {
+                  "type": "string",
+                  "example": "admin"
+                },
+                "userAddedDate": {
+                  "type": "integer",
+                  "example": null
+                },
+                "department": {
+                  "type": "string",
+                  "example": "DEV"
+                },
+                "title": {
+                  "type": "string",
+                  "example": "Tech Lead"
+                },
+                "active": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "requestLocale": {
+                  "type": "string",
+                  "example": "auto"
+                },
+                "managerId": {
+                  "type": "integer",
+                  "example": 101
+                }
+              }
+            }
+          },
+          "allActiveUsers": {
+            "type": "integer",
+            "example": 4
+          },
+          "allInactiveUsers": {
+            "type": "integer",
+            "example": 0
+          }
+        }
+      },
+      "CreateNewAccount": {
+        "type": "object",
+        "required": [
+          "companyName",
+          "firstName",
+          "lastName",
+          "emailId",
+          "loginPassword",
+          "accountType"
+        ],
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "example": "YOUR_CLIENT_ID"
+          },
+          "client_secret": {
+            "type": "string",
+            "example": "YOUR_CLIENT_SECRET"
+          },
+          "company": {
+            "type": "object",
+            "properties": {
+              "companyName": {
+                "type": "string",
+                "example": "Wayne Tech"
+              },
+              "companyAddress": {
+                "type": "string",
+                "example": "LA, US"
+              }
+            }
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "firstName": {
+                "type": "string",
+                "example": "Bruce"
+              },
+              "lastName": {
+                "type": "string",
+                "example": "Wayne"
+              },
+              "emailId": {
+                "type": "string",
+                "example": "bruce.wayne_as@esigngenie.com"
+              },
+              "loginPassword": {
+                "type": "string",
+                "example": "12345"
+              }
+            }
+          },
+          "planName": {
+            "type": "string",
+            "example": "Professional"
+          },
+          "accountType": {
+            "type": "string",
+            "example": "partner-pay"
+          },
+          "partner_code": {
+            "type": "string",
+            "example": "YOUR_PARTNER_CODE"
+          }
+        }
+      },
+      "resCreateNewAccount": {
+        "type": "object",
+        "properties": {
+          "refresh_token": {
+            "type": "string",
+            "example": "bd7f308011b34605bc1ab79cbca16c3c"
+          },
+          "access_token": {
+            "type": "string",
+            "example": "952012fd55e7421faf8d1ac80e30dd0a"
+          },
+          "token_type": {
+            "type": "string",
+            "example": "bearer"
+          },
+          "expires_in": {
+            "type": "integer",
+            "example": 31535999
+          },
+          "result": {
+            "type": "string",
+            "example": "success"
+          },
+          "message": {
+            "type": "string",
+            "example": "new company registration successfull"
+          },
+          "company": {
+            "type": "object",
+            "properties": {
+              "companyId": {
+                "type": "integer",
+                "example": 30
+              },
+              "companyName": {
+                "type": "string",
+                "example": "Wayne Tech"
+              },
+              "companyAddress": {
+                "type": "string",
+                "example": "LA, US"
+              },
+              "companyTimeZone": {
+                "type": "string",
+                "example": "America/Los_Angeles"
+              },
+              "companyDateFormat": {
+                "type": "string",
+                "example": "MM/DD/YYYY"
+              },
+              "creationDate": {
+                "type": "integer",
+                "example": 1504696542000
+              },
+              "companyReferer": {
+                "type": "string",
+                "example": "test"
+              },
+              "accountType": {
+                "type": "string",
+                "example": "partner-pay"
+              },
+              "accountStatus": {
+                "type": "string",
+                "example": "active"
+              },
+              "accountOwner": {
+                "type": "integer",
+                "example": 1147
+              },
+              "passwordProtectEnvelopes": {
+                "type": "boolean",
+                "example": false
+              },
+              "attachCertificateToDocs": {
+                "type": "boolean",
+                "example": false
+              },
+              "defaultSignOption": {
+                "type": "string",
+                "example": "TYPE"
+              },
+              "sendNotificationToOwner": {
+                "type": "boolean",
+                "example": false
+              },
+              "sendPDFWithMail": {
+                "type": "boolean",
+                "example": true
+              },
+              "defaultFieldNavigation": {
+                "type": "string",
+                "example": "ALL"
+              },
+              "defaultDisplayIndicators": {
+                "type": "boolean",
+                "example": true
+              },
+              "allowRecipientsToDelegate": {
+                "type": "boolean",
+                "example": false
+              }
+            }
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "firstName": {
+                "type": "string",
+                "example": "Bruce"
+              },
+              "lastName": {
+                "type": "string",
+                "example": "Wayne"
+              },
+              "emailId": {
+                "type": "string",
+                "example": "bruce.wayne_as@esigngenie.com"
+              },
+              "loginPassword": {
+                "type": "string",
+                "example": "12345"
+              }
+            }
+          },
+          "planName": {
+            "type": "string",
+            "example": "Professional"
+          },
+          "accountType": {
+            "type": "string",
+            "example": "partner-pay"
+          },
+          "partner_code": {
+            "type": "string",
+            "example": "YOUR_PARTNER_CODE"
+          }
+        }
+      },
+      "resCancelAccount": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "string",
+            "example": "success"
+          },
+          "message": {
+            "type": "string",
+            "example": "company 32567 cancelled successfully"
+          }
+        }
+      },
+      "resReactivateAccount": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "string",
+            "example": "success"
+          },
+          "message": {
+            "type": "string",
+            "example": "company 32567 reactivated successfully"
+          }
+        }
+      },
+      "resChangenumberoflicences": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "string",
+            "example": "success"
+          },
+          "message": {
+            "type": "string",
+            "example": "company 32567 licence number changed to 3"
+          }
+        }
+      },
+      "resChangePlan": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "string",
+            "example": "success"
+          },
+          "message": {
+            "type": "string",
+            "example": "company 32567 plan changed to Business Premium"
+          }
+        }
+      }
+    }
+  }
+}
